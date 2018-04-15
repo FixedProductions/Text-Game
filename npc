@@ -1,0 +1,59 @@
+
+public class NPC 
+{
+    public String name;
+    public String classType;
+    public int age;
+    public int strength;
+    public int hp;
+    public int hpcap;
+    public int mp;
+    public int mpcap;
+    public int attack;
+    public int exp;
+    public int level;
+    
+    public static int population = 1;
+    
+    /**
+     * Default NPC is the Old Man
+     */
+    public NPC()
+    {
+        this.name = "Old Man";
+        this.classType = "Warlock";
+        this.age = 103;
+        this.strength = 10;
+        this.attack = 999;
+        this.hp = 5600;
+        this.hpcap = 5600;
+        this.mp = 9999;
+        this.mpcap = 9999;
+        this.exp = 189999;
+        this.level = 50;
+    }
+    
+    /**
+     * shows statistics of individual NPCs
+     */
+    public void stats()
+    {
+        //source code location
+        System.out.println("\n**Class: NPC - Method: stats**\n");
+        
+        System.out.println(this.name + "\'s stats:");
+        System.out.println("Class: " + this.classType);
+        System.out.printf("Level: %6d\n", this.level);
+        System.out.printf("HP: %9d / %d \n", this.hp, this.hpcap);
+        System.out.printf("MP: %9d / %d \n", this.mp, this.mpcap);
+        System.out.printf("Strength: %3d\n", this.strength);
+        System.out.printf("Attack: %5d\n", this.attack);
+        System.out.printf("EXP: %8d\n", this.exp);
+    }
+    
+    //Individual NPC greetings
+    public void greet(Warrior $warrior1)
+    {
+        System.out.println(this.name + ": Greetings, " + $warrior1.name + ".");
+    }
+}
