@@ -1,0 +1,188 @@
+import java.util.*;
+import javax.swing.*;
+public class Demo 
+{
+    public static void main(String[] args)
+    {
+        Scanner mainInput = new Scanner(System.in);
+        String menu;
+        boolean menuOn = true;
+        
+        while(menuOn)
+        {
+            
+            do{
+                System.out.println("      Please select a menu item    ");
+                System.out.println("___________________________________");
+                System.out.println("              -Play Game-          ");
+                System.out.println("                -Quit-             ");
+                System.out.println("___________________________________");
+                System.out.print("Enter >> ");
+                menu = mainInput.nextLine();
+       
+                if(menu.equalsIgnoreCase("Play Game"))
+                    characterSelection();
+                else if(menu.equalsIgnoreCase("Quit"))
+                    menuOn = false;
+                else
+                {
+                    System.out.println();
+                    System.out.println();
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("Not a menu option, please try again.");
+                }
+                System.out.println();
+                System.out.println();
+            }while(!(menu.equalsIgnoreCase("Quit")));
+        }//end outer loop main menu
+        
+        
+        System.exit(0);
+    }//end main
+    
+    
+    
+    public static void characterSelection()
+    {
+        //source code location
+        System.out.println("\n**Class: Demo - Method: static characterSelection**\n");
+        
+        Warrior warrior1;
+        String name = null;
+        String age = null;
+        int ageNum = 22;
+        String $menu;
+        boolean $menuOn = true;
+        boolean one = false;
+        
+        //JFrame settings
+        JFrame frmOpt = new JFrame();
+        frmOpt.setVisible(true);
+        frmOpt.setLocation(700, 500);
+        frmOpt.setAlwaysOnTop(true);
+        
+        do{
+            $menu = JOptionPane.showInputDialog(frmOpt, "Select a class: \n"
+                                                      + "1) Warrior      \n"
+                                                      + "2) Thief          ");
+            if($menu.equalsIgnoreCase("Warrior"))
+            {
+                name = JOptionPane.showInputDialog(frmOpt, "Name your Warrior:");
+                age = JOptionPane.showInputDialog(frmOpt, "Please enter your age:");
+                ageNum = Integer.parseInt(age);
+                $menuOn = false;
+                one = true;
+            }
+            else if($menu.equalsIgnoreCase("Thief"))
+                JOptionPane.showMessageDialog(frmOpt, "That option has not finished development.");
+            else
+                JOptionPane.showMessageDialog(frmOpt, "That is not a valid option. \n"
+                                                    + "Please try again.");
+        }while($menuOn);
+        
+        frmOpt.dispose(); //remove frame object
+        
+        System.out.println();
+        
+        if(one)
+        {
+            warrior1 = new Warrior(name, ageNum);
+            game(warrior1);
+        }
+    }//end characterSelection
+    
+    public static void game(Warrior warrior1)
+    {
+        //source code location
+        System.out.println("\n**Class: Demo - Method: static game**\n");
+        
+        NPC oldMan = new NPC();
+        MainLobby mainLobby = new MainLobby();
+        Scanner command = new Scanner(System.in);
+        
+        System.out.println("...");
+        System.out.print("Press enter to continue...");
+        command.nextLine();
+        
+        System.out.println();
+        oldMan.greet(warrior1);
+        System.out.print("Press enter to continue...");
+        command.nextLine();
+        
+        System.out.println();
+        MainLobby.lobby(warrior1);
+    }//end game
+    
+    public static void help()
+    {
+        //source code location
+        System.out.println("\n**Class: Demo - Method: static help**\n");
+        
+        System.out.println("Various command options: \"move couch\" \"go east\" \"stats\"");
+    }
+    
+    public static void battleNPC(Warrior player1, NPC npc)
+    {
+        //source code location
+        System.out.println("\n**Class: Demo - Method: static battleNPC**\n");
+        
+        Random attack = new Random();
+        Random exp = new Random();
+        int expnum = 0;
+        Scanner command = new Scanner(System.in);
+        int playerdamage, npcdamage;
+        
+        /**
+         * INCLUDE UPDATES
+         * add extra actions
+         */
+        while(player1.hp > 0 && npc.hp > 0)
+        {
+            System.out.print("Press enter to attack!");
+            command.nextLine();
+            playerdamage = attack.nextInt(player1.strength);
+            npcdamage = attack.nextInt(npc.strength);
+            
+            npc.hp -= playerdamage;
+            System.out.println("\nYou dealt " + playerdamage +" damage! \n"
+                  + npc.name + " has " + npc.hp + " HP\n");
+            
+            player1.hp -= npcdamage;
+            System.out.println(npc.name + " dealt " + npcdamage + " damage! \n"
+                  + player1.name + " has " + player1.hp + " HP\n");
+        }
+        
+        if(npc.hp <= 0)
+        {
+            npc.hp += -npc.hp;
+            System.out.println(npc.name + " has been defeated.");
+            expnum = expGenerator(player1, npc, expnum); //exp generator
+            System.out.println("You earned " + expnum + " exp! \n");
+            player1.levelup();  //level up sequence
+        }
+        else
+        {
+            player1.hp += -player1.hp + 1;
+            System.out.println(player1.name + " has been defeated. \n Game Over. \n");
+        }
+    }//end battle
+    
+    public static int expGenerator(Warrior winner, NPC enemy, int $exp)
+    {
+        Random rand = new Random();
+        
+        if(enemy.level <= 5)
+            $exp = rand.nextInt(10) + 3;
+        else if(enemy.level <= 10)
+            $exp = rand.nextInt(20) + 10;
+        else if(enemy.level <= 50)
+            $exp = rand.nextInt(2000) + 1300;
+        else
+            $exp = 99999;
+        
+        winner.exp += $exp;
+        
+        return $exp;
+    }
+}//end class
