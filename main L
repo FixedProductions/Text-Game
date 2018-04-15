@@ -1,0 +1,104 @@
+import java.util.*;
+public class MainLobby 
+{
+    public boolean entrance;
+    public boolean northdoor;
+    public boolean eastdoor;
+    public boolean couchMoved;
+    public String couch;
+    
+    public MainLobby()
+    {
+        this.entrance = false;
+        this.northdoor = true;
+        this.eastdoor = true;
+        this.couch = "Black Couch";
+        this.couchMoved = false;
+    }
+    
+    
+    //surrounds of the main lobby
+    public void surroundings()
+    {
+        //source code location
+        System.out.println("\n**Class: MainLobby - Method: surroundings**\n");
+        
+        System.out.println();
+        if(couchMoved)
+            System.out.println("To your north stands an Old Man, beyond him is a white door, with a window and a chair to the right of the door. \n"
+                             + "To the west, there is a rusty hatch, leather couch, and a coffee table with magazines on it. \n"
+                             + "To the south, there is an open door leading outside. \n"
+                             + "To the east, there is a door boarded shut. \n"
+                             + "The walls of the room are painted white. \n");
+        else
+            System.out.println("To your north stands an Old Man, beyond him is a white door, with a window and a chair to the right of the door. \n"
+                         + "To the west, there is a leather couch with a coffee table that has some magazines on it. \n"
+                         + "To the south, there is an open door leading outside. \n"
+                         + "To the east, there is a door boarded shut. \n"
+                         + "The walls of the room are painted white. \n");
+    }
+    
+    
+    //player interation within the main lobby
+    public static void lobby(Warrior player)
+    {
+        Scanner input = new Scanner(System.in);
+        Random attack = new Random();
+        int damage;
+        String command;
+        boolean lobbyOn = true;
+        NPC oldMan = new NPC();
+        MainLobby mainLobby = new MainLobby();
+        
+        //source code location
+        System.out.println("\n**Class: MainLobby - Method: static lobby**\n");
+        
+        System.out.println(oldMan.name + ": Welcome to the Main Lobby. \n"
+                         + oldMan.name + ": From here, you can access various rooms and partake on random adventures. \n"
+                         + oldMan.name + ": Look around the room by typing \"Look around\". \n");
+        
+        
+        /**
+            * player input to interact within the room
+            * input "look around" to view your surroundings
+            * input "stats" to view player stats
+            * input "old man stats" to view old man stats
+            * input "move couch" to move couch and review rusty hatch
+            * input "leave" to return to main menu
+        */
+        do{
+            System.out.println("Input a command");
+            System.out.print(">> ");
+            command = input.nextLine();
+            
+            if(command.equalsIgnoreCase("look around"))
+            {
+                mainLobby.surroundings();
+            }
+            else if(command.equalsIgnoreCase("Move couch"))
+            {
+                if(mainLobby.couchMoved)
+                    System.out.println("You already moved the couch.");
+                else
+                {
+                    mainLobby.couchMoved = true;
+                    System.out.println("You moved the couch, revealing a rusty hatch.");
+                }
+            }
+            else if(command.equalsIgnoreCase("stats"))
+                player.stats();
+            else if(command.equalsIgnoreCase("old man stats"))
+                oldMan.stats();
+            else if(command.equalsIgnoreCase("help"))
+                Demo.help();
+            else if(command.equalsIgnoreCase("fight old man"))
+            {
+                Demo.battleNPC(player, oldMan);
+            }
+            else if(command.equalsIgnoreCase("leave"))
+                lobbyOn = false;
+                
+            System.out.println();
+        }while(lobbyOn);
+    }
+}
