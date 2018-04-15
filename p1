@@ -1,0 +1,86 @@
+public class Warrior 
+{
+    public String name;
+    public String classType;
+    public int age;
+    public int strength;
+    public int hp;
+    public int hpcap;
+    public int mp;
+    public int mpcap;
+    public int attack;
+    public double exp;
+    public double expRemaining;
+    public int level;
+    
+    public static int population = 0;
+    
+    public Warrior()
+    {
+        this.name = "Warrior";
+        this.classType = "Warrior";
+        this.age = 22;
+        this.level = 1;
+        this.exp = 0;
+        this.attack = 10;
+        this.strength = 11;
+        this.hp = 100;
+        this.mp = 10;
+    }
+    
+    public Warrior(String a, int b)
+    {
+        this.name = a;
+        this.classType = "Warrior";
+        this.age = b;
+        this.level = 1;
+        this.exp = 0;
+        this.expRemaining = Math.pow(Math.E, this.level);
+        this.attack = 10;
+        this.strength = 2000;
+        this.hp = 100;
+        this.hpcap = 100;
+        this.mp = 10;
+        this.mpcap = 10;
+    }
+    
+    public void greet()
+    {
+        System.out.println("Hello! My name is " + this.name + ".");
+    }
+    
+    public void stats()
+    {
+        //source code location
+        System.out.println("\n**Class: Warrior - Method: stats**\n");
+        
+        System.out.println(this.name + "\'s stats:");
+        System.out.println("Class: " + this.classType);
+        System.out.printf("Level: %6d \n", this.level);
+        System.out.printf("HP: %9d / %d \n", this.hp, this.hpcap);
+        System.out.printf("MP: %9d / %d \n", this.mp, this.mpcap);
+        System.out.printf("Strength: %3d\n", this.strength);
+        System.out.printf("Attack: %5d\n", this.attack);
+        System.out.printf("EXP: %8.0f / %.0f\n", this.exp, this.expRemaining);
+    }
+    
+    //individual characters level up sequence
+    public void levelup()
+    {
+        //source code location
+        System.out.println("\n**Class: Warrior - Method: levelup**\n");
+        
+        
+        do{
+           if(this.exp > this.expRemaining)
+           {
+               this.level++;
+               this.expRemaining = Math.pow(Math.E, this.level);
+               System.out.println("Congrats! You are now level " + this.level);
+           }
+        }while(this.exp > this.expRemaining);
+        
+        this.expRemaining = Math.pow(Math.E, this.level);
+        System.out.printf("%.0f exp remaining. \n", this.expRemaining - this.exp);
+    }
+}
