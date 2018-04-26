@@ -1,0 +1,95 @@
+/*
+Kyle O'Dell
+Professor Mimi Rasky
+Math 130-03
+Lab #10
+April 24, 2018
+*/
+package persontest;
+
+import java.util.*;
+public class Person 
+{
+    public String name;
+    private int age;
+    
+    private static int NumMade = 0;
+    private static ArrayList<String> list = new ArrayList<>();
+    
+    //default constructor (no-arg)
+    public Person()
+    {
+        this.name = "Biz Markie";
+        this.age = 54;
+        NumMade++;
+        addName("Biz Markie");
+    }//end default constructor
+    
+    //custom constructor
+    public Person(String name, int age)
+    {
+        this.name = name;
+        setAge(age);
+        NumMade++;
+        addName(name);
+    }//end custom constructor
+    
+    //age accessor
+    public int getAge()
+    {
+        return this.age;
+    }//end getAge
+    
+    //age mutator
+    public void setAge(int age)
+    {
+        if(age < 0)
+        {
+            System.out.println("You have entered an invalid age, "
+                             + "setting to Biz Markie's age (54).");
+            this.age = 54;
+        }
+        else
+            this.age = age;
+    }//end setAge
+    
+    //increase age
+    public void increaseAge(int addAge)
+    {
+        this.age += addAge;
+    }//end increaseAge
+    
+    //toString method, displays instance data
+    public String toString()
+    {
+        return String.format("%-20s %-20d", this.name, this.age);
+    }//end toString
+    
+    //compare instance data
+    public Boolean equals(Person p1)
+    {
+        if(this.name.equals(p1.name) && this.age == p1.age)
+            return true;
+        else
+            return false;
+    }//end equals
+    
+    //NumMade accessor
+    public static int getNumMade()
+    {
+        return NumMade;
+    }//end getNumMade
+    
+    //display all names within ArrayList 'list'
+    public static void showPeople()
+    {
+        for(int i = 0; i < list.size(); i++)
+            System.out.println(list.get(i));
+    }//end showPeople
+    
+    //adds names to ArrayList 'list'
+    public static void addName(String newName)
+    {
+        list.add(newName);
+    }//end addName
+}//end class
