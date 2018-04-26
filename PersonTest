@@ -1,0 +1,92 @@
+/*
+Kyle O'Dell
+Professor Mimi Rasky
+Math 130-03
+Lab #10
+April 24, 2018
+*/
+package persontest;
+
+import java.util.*;
+public class PersonTest 
+{
+    public static void main(String[] args) 
+    {
+        Scanner input = new Scanner(System.in);
+        Person person1;
+        Person person2;
+        Person person3;
+        
+        String personName;
+        int personAge;
+        
+        System.out.print("Please name your person: ");
+        personName = input.nextLine();
+
+        System.out.print("How old is " + personName + "? ");
+        personAge = input.nextInt();
+        
+        //creates new person object with input name and age
+        person1 = new Person(personName, personAge);
+        
+        System.out.println();
+        input.nextLine();
+        System.out.print("Please name your person: ");
+        personName = input.nextLine();
+
+        System.out.print("How old is " + personName + "? ");
+        personAge = input.nextInt();
+        
+        //creates another new person with input name and age
+        person2 = new Person(personName, personAge);
+
+        person3 = new Person();
+        
+        //displays all objects data
+        System.out.println();
+        System.out.printf("%-20s %-20s\n\n", "Name", "Age");
+        System.out.println(person1);
+        System.out.println(person2.toString());
+        System.out.println(person3.toString());
+        
+        System.out.println();
+        System.out.println("Changing name and age of person3...");
+        
+        //changing name of person3
+        person3.name = "Roger Waters";
+        Person.addName(person3.name);
+        person3.setAge(74);
+        
+        //display person3 data
+        System.out.println(person3.toString());
+        
+        //compares objects data to see if data is the same
+        System.out.println();
+        System.out.println("person1 contains the same data as person1: " 
+                                             + person1.equals(person1));
+        System.out.println("person1 contains the same data as person2: " 
+                                             + person1.equals(person2));
+        
+        //increases person1 age and displays the data
+        System.out.println();
+        System.out.println("Increasing " + person1.name + "\'s age by 10...");
+        person1.increaseAge(10);
+        System.out.printf("%-20s %-20d\n", person1.name, person1.getAge());
+        
+        //displays number of people made
+        System.out.println();
+        System.out.println("The number of people made is: " + Person.getNumMade());
+        
+        //displays all objects data
+        System.out.println();
+        System.out.printf("%-20s %-20s\n\n", "Name", "Age");
+        System.out.println(person1.toString());
+        System.out.println(person2.toString());
+        System.out.println(person3.toString());
+        System.out.println();
+        
+        //displays all names in ArrayList list
+        System.out.println("List of names currently in the ArrayList 'list':");
+        Person.showPeople();
+    }//end main
+}//end class
